@@ -27,45 +27,45 @@ erDiagram
     ESTABELECIMENTOS ||--o{ RESGATES_PONTOS : "processa"
     ESTABELECIMENTOS ||--o{ LOTES_PONTOS : "controla"
     ESTABELECIMENTOS ||--o{ NFCES : "emite notas"
-
+ 
     PROGRAMAS_FIDELIDADE ||--o{ REGRAS_PONTOS : "versiona"
     MODELOS_REGRAS_PONTOS o|--o{ REGRAS_PONTOS : "origina template"
     USERS o|--o{ REGRAS_PONTOS : "cria"
     REGRAS_PONTOS o|--o{ CAMPANHAS_PONTOS : "e aplicada em"
     REGRAS_PONTOS o|--o{ EXTRATOS_PONTOS : "calcula"
     CAMPANHAS_PONTOS o|--o{ EXTRATOS_PONTOS : "bonifica"
-
+ 
     CONSUMIDORES ||--o{ SALDOS_PONTOS : "possui por loja"
     CONSUMIDORES ||--o{ EXTRATOS_PONTOS : "tem historico"
     CONSUMIDORES ||--o{ RESGATES_PONTOS : "solicita"
     CONSUMIDORES ||--o{ LOTES_PONTOS : "acumula"
     CONSUMIDORES ||--o{ NFCES : "escaneia"
-
+ 
     NFCES ||--o{ NFCE_ITENS : "contem"
     NFCES ||--o| EXTRATOS_PONTOS : "origina credito"
     EXTRATOS_PONTOS ||--o| LOTES_PONTOS : "gera lote de credito"
     RECOMPENSAS ||--o{ RESGATES_PONTOS : "e resgatada em"
     RESGATES_PONTOS o|--o{ EXTRATOS_PONTOS : "gera debito"
-
+ 
     ESTABELECIMENTOS {
         bigint id PK
         string cnpj_emitente UK
         string status
         decimal fator_conversao "legado temporario"
     }
-
+ 
     USERS {
         bigint id PK
         bigint estabelecimento_id FK
         string role
     }
-
+ 
     CONSUMIDORES {
         bigint id PK
         string email UK
         string status
     }
-
+ 
     NFCES {
         bigint id PK
         bigint consumidor_id FK
@@ -76,7 +76,7 @@ erDiagram
         timestamp data_emissao
         string status
     }
-
+ 
     NFCE_ITENS {
         bigint id PK
         bigint nfce_id FK
@@ -85,7 +85,7 @@ erDiagram
         decimal valor_unitario
         decimal valor_total
     }
-
+ 
     PROGRAMAS_FIDELIDADE {
         bigint id PK
         bigint estabelecimento_id FK
@@ -94,7 +94,7 @@ erDiagram
         string status
         string moeda_pontos
     }
-
+ 
     MODELOS_REGRAS_PONTOS {
         bigint id PK
         string codigo UK
@@ -103,7 +103,7 @@ erDiagram
         json configuracao_padrao_json
         boolean ativo
     }
-
+ 
     REGRAS_PONTOS {
         bigint id PK
         bigint programa_id FK
@@ -117,7 +117,7 @@ erDiagram
         timestamp vigente_ate
         json configuracao_json
     }
-
+ 
     CAMPANHAS_PONTOS {
         bigint id PK
         bigint estabelecimento_id FK
@@ -128,7 +128,7 @@ erDiagram
         timestamp inicio_em
         timestamp fim_em
     }
-
+ 
     RECOMPENSAS {
         bigint id PK
         bigint estabelecimento_id FK
@@ -141,7 +141,7 @@ erDiagram
         timestamp inicio_em
         timestamp fim_em
     }
-
+ 
     RESGATES_PONTOS {
         bigint id PK
         bigint recompensa_id FK
@@ -153,7 +153,7 @@ erDiagram
         timestamp expira_em
         timestamp utilizado_em
     }
-
+ 
     SALDOS_PONTOS {
         bigint id PK
         bigint consumidor_id FK
@@ -163,7 +163,7 @@ erDiagram
         decimal pontos_a_expirar
         timestamp proxima_expiracao_em
     }
-
+ 
     EXTRATOS_PONTOS {
         bigint id PK
         bigint consumidor_id FK
@@ -178,10 +178,10 @@ erDiagram
         json metadados_json
         timestamp created_at
     }
-
+ 
     LOTES_PONTOS {
         bigint id PK
-        bigint extrato_credito_id FK UK
+        bigint extrato_credito_id FK, UK
         bigint consumidor_id FK
         bigint estabelecimento_id FK
         decimal pontos_originais
